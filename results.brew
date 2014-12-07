@@ -1,0 +1,72 @@
+<%= header("Period results") %>
+<% brew("functions.brew") %>
+<% brew("styles.brew") %>
+
+<h1>Period results - period <%= period %></h1>
+
+<div class="info">
+<p>The arrows show who picked whom as a target.</p>
+<p>If <%= min_targeters %> or more group members picked a target, 
+the arrows and target are shown in red. 
+The target loses <%= ukp(endowment) %>. 
+The <%= ukp(endowment) %> is shared between all those who picked the
+target.</p>
+</div>
+<div class="tcouter">
+<div class="targetcanvas">
+<% 
+   ct <- 0
+   for (j in random_order[, id]) { 
+     ct <- ct + 1
+     subj <- mydf[mydf$id==j & mydf$period==period,]
+     shift <- if(ct <= gs/2) "shiftright" else "shiftleft"
+     gain <- if (isTRUE(subj$successful))
+          endowment/sum(mydf$target[mydf$period==period]==subj$target)
+     targeted <- subj$targeted >= min_targeters
+%>
+<div class="targetpicker pos<%= ct %><%= if(targeted) ' targeted' %> ">
+<%= colour_display(subj$colour, j==id) %>
+</div>
+<div class="pos<%= ct %> <%= shift %> profitinfo">
+<%= if (subj$targeted >= min_targeters) paste("Lost", ukp(endowment), "<br>") %>
+<%= if (subj$target > 0) paste("Paid", ukp(tcost), "<br>") %>
+<%= if (isTRUE(subj$successful)) paste("Gained", ukp(gain), "<br>") %>
+<i>Profit: <%= ukp(subj$profit) %></i>
+</div>
+<% } %>
+</div>
+<div class="targetcanvas">
+<svg width="97%" height="97%" preserveAspectRatio="none" viewBox="0 0 100 100">
+<defs>
+  <marker id="tipfail" markerWidth="13" markerHeight="13" refx="2" refy="6" orient="auto">
+      <path d="M2,1 L2,10 L10,6 L2,2" class="arrowtipfail"/>
+  </marker>
+  <marker id="tipsuccess" markerWidth="13" markerHeight="13" refx="2" refy="6" orient="auto">
+      <path d="M2,1 L2,10 L10,6 L2,2" class="arrowtipsuccess"/>
+  </marker>
+</defs>
+<%
+   # for each id, draw an arrow to their target if they picked a target > 0
+   # colour it differently based on success or failure (using css?)
+   for (j in random_order[,id]) {
+     target <- mydf$target[mydf$id==j & mydf$period==period]
+     if (target==0) next
+     from <- which(random_order[,id]==j)
+     to <- which(random_order[,id]==target)
+     # from and to are positions
+     cssclass <- if (mydf$successful[mydf$id==j & mydf$period==period]) 
+           "arrowsuccess" else "arrowfail"
+     tipid <- if (mydf$successful[mydf$id==j & mydf$period==period]) 
+           "tipsuccess" else "tipfail"
+     fxf <- round(fx(from) * .95 + 50*.05) # a bit towards the centre
+     fyf <- round(fy(from) * .95 + 50*.05)
+%>
+<path d="M<%= fxf %>,<%= fyf %> L<%= fx(to) %>,<%= fy(to) %>"
+      class="<%= cssclass %>" style="marker-end: url(#<%=tipid%>);" />
+<% } %>
+</svg>
+</div>
+</div>
+<p>Click 'Next period' to move on.</p>
+<%= next_form("Next period") %>
+<%= footer() %>

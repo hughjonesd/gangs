@@ -1,0 +1,31 @@
+<%= header("Questionnaire") %>
+<% brew("functions.brew") %>
+<% brew("styles.brew") %>
+
+<form action="" method="POST">
+
+<p>Are you...<br>
+<label><input type="radio" name="q_gender" value="male">male</label>
+<label><input type="radio" name="q_gender" value="female">female</label>
+</p>
+
+<p>Do you play any team sports regularly?<br>
+<label><input type="radio" name="q_teamsports" value="yes">yes</label>
+<label><input type="radio" name="q_teamsports" value="no">no</label>
+</p>
+
+
+<p>Do you play any other sports regularly?<br>
+<label><input type="radio" name="q_othsports" value="yes">yes</label>
+<label><input type="radio" name="q_othsports" value="no">no</label>
+</p>
+<p>What did you think this experiment was about?<br>
+<textarea name="q_about" style="width:40%; height: 15%;">
+
+</textarea>
+</p>
+
+<input type='submit' value='Submit and finish'>
+</form>
+
+<%= footer() %>

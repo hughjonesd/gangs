@@ -1,0 +1,26 @@
+<%
+colour_display <- function(colour, is_viewer=FALSE, content=NULL) {
+  if (is.null(content)) content <- if (is_viewer) "you" else "&nbsp;"
+  sprintf('<div class="colourdisplay" style="background: %s">
+        <span>%s</span></div>', colour, content)
+}
+
+ukp <- function(amt) {
+  sprintf('£%0.2f', amt)
+}
+
+instrbutton <- '<button class="instrbutton" 
+  onclick="document.getElementById(\'instr\').style.display=\'block\';">
+  Click for instructions</button>'
+
+lng <- 45
+fx <- function(pos) {
+ 50 + round(sin(pos/gs * 2 * pi) * lng)
+}
+
+fy <- function(pos) {
+ 50 + round(cos(pos/gs * 2 * pi) * lng)
+}
+
+%>
+

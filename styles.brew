@@ -1,0 +1,189 @@
+<meta charset="UTF-8">
+<style>
+
+#instr {
+  display: none;
+}
+
+.colourchooser {
+  height: 40px;
+  width: 40px;
+  border: 1px solid #444;
+  cursor: pointer;
+}
+
+.groupstrip {
+  width: 100%;
+}
+
+.groupstrip .colourdisplay {
+  display: inline-flex;
+}
+
+
+.colourdisplay {
+  border-radius: 30px;
+  height: 60px;
+  width: 60px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  border: 1px solid #888;
+}
+
+
+button.targetpicker {
+  cursor: pointer;
+  background: white;
+  outline: none;
+  border: 0px;
+}
+
+button.targetpicker:disabled {
+  cursor: default;
+}
+
+button.targetpicker:disabled .colourdisplay{
+  border: 1px dashed #888;
+  color: #333;
+}
+
+.targeted .colourdisplay{
+  border: 2px solid #A00;
+}
+
+.colourdisplay span {
+  z-index: 1;
+}
+
+.arrowsuccess {
+  stroke: #A00;
+  stroke-width: .5;
+  opacity: 0.8;
+}
+
+.arrowtipsuccess {
+  fill: #A00;
+  stroke: #A00;
+  opacity: 0.8;
+}
+
+.arrowfail {
+  stroke: #777;
+  stroke-dasharray: 2,2;
+  stroke-width: .5;
+  opacity: 0.8;
+}
+ 
+.arrowtipfail {
+  fill: #777;
+  stroke: #777;
+  stroke-dasharray: 0;
+  opacity: 0.8;
+}
+
+body > div {
+  position: relative;
+}
+
+.info {
+  padding-bottom: 30px;
+}
+
+.tcouter {
+  position: relative;
+  height: 300px;
+  width: 500px;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.targetcanvas {
+  position: absolute;
+  left: 5%;
+  top: 0%;
+  width: 90%;
+  height: 100%;
+}
+
+<%=
+paste0(sapply(1:gs, function(pos) sprintf(
+"
+.pos%d {
+  position: absolute;
+  left: %.0f%%;
+  top: %.0f%%;
+  transform: translate(-50%%, -50%%);
+}
+", 
+  pos, fx(pos), fy(pos) )))
+%>
+
+button.targetnobody {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+.shiftleft {
+  text-align: right;
+  transform: translate(-120px, -50%);
+}
+
+.shiftright {
+  text-align: right;
+  transform: translate(40px, -50%);
+}
+
+.profitinfo {
+  font-size: 8pt;
+  color: #888;
+  padding-right: 5px;
+  border-radius: 5px;
+  height: 60px;
+  width: 80px;
+  vertical-align: bottom;
+}
+
+
+h1 {
+  font-size: large;
+}
+
+body, p {
+  font-family: verdana, sans-serif;
+}
+
+.errors {
+  color: red;
+  font-weight: bold;
+}
+
+table.earnings tr:nth-child(odd) { 
+    background-color:#EEE; 
+}
+
+table.earnings tr:nth-child(even)	{ 
+    background-color:#FFF; 
+}
+
+label {
+  background-color: #EEE;
+  cursor: pointer;
+  margin: 2px;
+  padding: 1px;
+  border-radius: 2px;
+}
+
+input[type=radio] {
+  cursor: pointer;
+}
+</style>
+
+<% if (length(errors)) { %>
+<div class="errors">
+<%= paste(errors, collapse='<br>') %>
+</div>
+<% } %>

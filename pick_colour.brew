@@ -1,0 +1,43 @@
+<%= header("Pick a new colour") %>
+<% brew("functions.brew") %>
+<% brew("styles.brew") %>
+
+<h1>Pick a new colour - period <%= period %></h1>
+  
+<p>Your group is shown below in random order:</p>
+<% 
+   g <- mydf$group[mydf$id==id & mydf$period==period]
+   for (j in sample(mydf$id[mydf$group==g & mydf$period==period])) {
+     colour <- mydf$colour[mydf$id==j & mydf$period==period]
+%>
+<span class="groupstrip"><%= colour_display(colour, j==id) %></span>
+<% } %>
+
+<p>Your current colour:</p>
+<%= colour_display(mydf$colour[mydf$id==id & mydf$period==period]) %>
+
+<% if (mydf$can_change[mydf$period==period & mydf$id==id]) { %>
+
+<p>You and <%= n_change_cols -1 %> other group members can choose their colours this round.</p>
+<p>Pick your colour for this round:</p>
+
+<form action="" method="POST">
+
+<% 
+   i <- 0
+   for (cl in mycolours) { 
+     i <- i + 1
+%>
+<button name="suggcolour" class="colourchooser" id="colourchooser<%= i %>" 
+      style="background: <%= cl %>;" type="submit" value="<%= cl %>">
+</button>
+<% } %>
+</form>
+
+<% } else { %>
+<p>You cannot change your colour this round. It will stay as shown above.</p>
+<p>Press the Next button to continue.</p>
+<%= next_form("Next") %>
+<% } %>
+
+<%= footer() %>

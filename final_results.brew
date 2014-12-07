@@ -1,0 +1,24 @@
+<%= header("Final results") %>
+<% brew("functions.brew") %>
+<% brew("styles.brew") %>
+
+<h1>Final results</h1>
+
+<p>Your earnings are shown below.</p>
+
+<table class="earnings">
+ <colgroup>
+    <col>
+    <col style="text-align: right;">
+  </colgroup>
+<tr><th>Period</th><th>Earnings</th></tr>
+<% for (p in 1:n_reps) { %>
+<tr><td><%= p %></td><td><%= ukp(mydf$profit[mydf$id==id & mydf$period==p]) %></td></tr>
+<% } %>
+<tr><td>Showup fee</td><td><%= ukp(showup_fee) %></td></tr>
+<tr><td>Total</td><td><%= ukp(globals$totalprofit[globals$id==id]) %></td></tr>
+</table>
+
+<p>There is now a short questionnaire.</p>
+<%= next_form("Begin questionnaire") %>
+<%= footer() %>

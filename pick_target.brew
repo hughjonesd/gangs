@@ -1,0 +1,38 @@
+<%= header("Pick a target") %>
+<% brew("functions.brew") %>
+<% brew("styles.brew") %>
+
+<h1>Pick a target - period <%= period %></h1>
+
+<div class="info">
+<p>All group members start this period with <%= ukp(endowment) %>.</p>
+<p>You may pick a target group member. If at least <%= min_targeters %>  group members pick a particular group member, that person loses <%= ukp(endowment) %>, leaving them with <%= ukp(0) %> from the period. The <%= ukp(endowment) %> is shared between all who picked that target.</p>
+
+<p>Group members are shown below in random order. They will be shown in a different order to other participants.</p>
+<p>Click on a group member to pick that group member, or click on 'Pick nobody'.</p>
+</div>
+<form action="" method="POST">
+<div class="tcouter">
+<div class="targetcanvas">
+<% 
+   ct <- 0
+   for (j in random_order[, id]) {
+     ct <- ct + 1
+%>
+<button class="targetpicker pos<%= ct %>" type="submit" name="target" 
+      value="<%= j %>"<%= if(j==id) " disabled" %>>
+<%= colour_display(mydf$colour[mydf$id==j & mydf$period==period], j==id) %>
+</button>
+<% } %>
+<button class="targetpicker targetnobody" type="submit" name="target" 
+      value="0">
+<%= colour_display("white", content="Pick nobody") %>
+</button>
+</div>
+</div>
+</form>
+
+<%= footer() %>
+
+
+

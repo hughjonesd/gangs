@@ -1,0 +1,9 @@
+<%= header("Instructions") %>
+<% brew("functions.brew") %>
+<% brew("styles.brew") %>
+
+<h1>Instructions</h1>
+
+<p>When the experimenter tells you, click Next.</p>
+<%= next_form("Next") %>
+<%= footer() %>
