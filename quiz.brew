@@ -1,0 +1,85 @@
+<%= header("Quiz") %>
+<% brew("functions.brew") %>
+<% brew("styles.brew") %>
+
+<script>
+  $(document).ready(function() {
+  $("form#quiz").submit(function(event){
+    var r1 = $("input[name=q1]:checked").val() == "no";
+    var r2 = $("input[name=q2]").val() == <%= n_change_cols %>;
+    var r3 = $("input[name=q3]").val() == <%= endowment %>;
+    var r4 = $("input[name=q4]:checked").val() == "divgain";
+    var r5 = $("input[name=q5]:checked").val() == "one";
+    
+    if (! r1) $("#lq1").addClass("wrong"); else $("#lq1").removeClass("wrong");
+    if (! r2) $("#lq2").addClass("wrong"); else $("#lq2").removeClass("wrong");
+    if (! r3) $("#lq3").addClass("wrong"); else $("#lq3").removeClass("wrong");
+    if (! r4) $("#lq4").addClass("wrong"); else $("#lq4").removeClass("wrong");
+    if (! r5) $("#lq5").addClass("wrong"); else $("#lq5").removeClass("wrong");
+
+    if (r1 && r2 && r3 && r4 && r5) {
+      $("#answers").slideDown("slow");
+    } else {
+      $("#quizerrors").slideDown("slow");
+    }
+    return false;
+  });
+});
+</script>
+<h1>Quiz</h1>
+
+<div id="quizerrors" style="display:none; color: red;">
+Please look again at the questions marked below.
+</div>
+<form action="" method="POST" onsubmit="" id="quiz">
+<ol>
+<li><span id="lq1">In each period, participants interact in groups of <%= gs %>.
+Does the identity of the group members change between periods?</span><br>
+<label><input type="radio" name="q1" value="yes">yes</label>
+<label><input type="radio" name="q1" value="no">no</label>
+</li>
+
+<li><span id="lq2">How many group members are able to change their colour 
+before each round?</span>
+<br><input type="number" min="0" max="<%= gs %>" name="q2"></li>
+
+<li><span id="lq3">How much money does each group member have at the start of the period?</span>
+<input type="number" min="0" max="20" step="1" name="q3"> pounds
+</li>
+
+<li><span id="lq4">If four group members pick the same target, what happens?
+</span><br>
+<label><input type="radio" name="q4" value="nothing">Nothing happens</label>
+<label><input type="radio" name="q4" value="allgain">The target loses <%= ukp(endowment) %> and those who picked him each gain <%= ukp(endowment) %></label>
+<label><input type="radio" name="q4" value="divgain">The target loses <%= ukp(endowment) %> and those who picked him each gain <%= ukp(endowment/4) %></label>
+</li>
+
+<li><span id="lq5">You will be paid your earnings from how many periods at the end of 
+the experiment?</span><br>
+<label><input type="radio" name="q5" value="one">one period</label>
+<label><input type="radio" name="q5" value="two">two periods</label>
+<label><input type="radio" name="q5" value="all">all periods</label>
+</li>
+</ol>
+<input type="submit" id="check" value="Check answers">
+</form>
+<div id="answers" style="display:none;">
+<p>Your answers are correct!</p>
+
+<ul>
+<li>Group members stay the same throughout.</li>
+<li><%= n_change_cols %> group members, chosen at random, can change their colours
+at the start of each period.</li>
+<li>Group members start each period with <%= ukp(endowment) %>.</li>
+<li>If at least <%= min_targeters %> group members target someone, that
+person loses <%= ukp(endowment) %> and this amount is split among all those who
+picked the person.</li>
+<li>Only one period, chosen at random, is paid.</li>
+</ul>
+<p>Click 'Next' to move on.</p>
+<form action="" method="POST">
+<input type="hidden" name="passed_quiz" value="1"><input type="submit" value="Next">
+</form>
+</div>
+
+<%= footer() %>

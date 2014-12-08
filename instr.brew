@@ -16,16 +16,18 @@ to change it during the experiment.</p>
 stages:</p>
 <ol>
 <li><b>Picking a colour.</b> Each group member's colour is shown on screen. 
-<%= n_change_cols %> of the participants are allowed to pick a new colour, 
-which can be the same or different as their old colour. The other 
-<%= gs - n_change_cols %> participants cannot change their colour.</li>
+<%= n_change_cols %> of the group members, chosen each round at random by the computer, 
+are able to pick a new colour, 
+which may or may not be the same as their old colour. The other 
+<%= gs - n_change_cols %> group members cannot change their colour.</li>
 <li><b>Picking a target.</b> See below.
 <li><b>Results.</b> The computer displays which group members targeted whom,
 and each member's earnings from this period.</li>
 </ol>
 
 <p>After the <%= n_reps %> periods, you will be shown your earnings. 
-In addition to your earnings from all the periods, you will receive a
+<b>One</b> period will be chosen at random for payment.
+In addition to your earnings from this one period, you will receive a
 £2.50 showup fee. There will then be a short questionnaire. 
 Finally, you will be paid privately and will be free to go.</p>
 

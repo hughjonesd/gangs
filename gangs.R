@@ -5,9 +5,13 @@ library(reshape2)
 # - quiz?
 # - consent form/infosheet/exper instrns/paper instrns?
 # - ethics!
-# - instructions reflect 1 payment period
+# - lab test: instrns ok?
 # - treatments per group
 #    - one "all different", one "3-3", one "2-2-2"?
+#    - all different means "no initial groups"
+#    - but also very specific and easy to make inferences?
+#    - random gives natural variation in e.g. "heterogeneity" or "polarization"
+#    - and will encourage targeting of standout minorities (probably)
 # - group ID measurement? moving cost elicit?
 
 # ===== poss future treatments =====
@@ -19,7 +23,8 @@ session <- 1L # session number
 gs <- if (testmode) 2L else 6L # group size
 N <- if (testmode) 2L else 24L # session size
 endowment <- 12.00 # per round
-tcost <- 1.00 # cost of targeting someone
+lossgain <- 10.00
+tcost <- 0.50 # cost of targeting someone
 showup_fee <- 2.50
 countdown <- 60 # for timer
 n_change_cols <- if (testmode) 2L else 2L # number who change colours in each group each round
@@ -36,11 +41,11 @@ on_ready <- function() {
   random_order <<- NA
   timeout <<- NA
   groups <<- sample(rep(1:(expt$N/gs), gs))
-  mydf <<- experiment_data_frame(expt, group=groups, 
+  mydf <<- experiment_data_frame(expt, group=groups, passed_quiz=NA,
         colour=sample(mycolours, N, replace=TRUE), can_change=NA,
         suggcolour=NA, target=NA, targeted=NA, successful=NA,
         pos=NA, profit=NA, period_chosen=NA,
-        q_about=NA, q_gender=NA, q_teamsports=NA, q_othsports=NA,
+        q_about=NA, q_comments=NA, q_gender=NA, q_teamsports=NA, q_othsports=NA,
         stringsAsFactors=FALSE)
 }
 
@@ -49,6 +54,17 @@ expt <- experiment(N=N, name="gangs", on_ready=on_ready, seed=seed,
 
 s_rules <- text_stage(b_brew("rules.brew"), name="Rules", wait=TRUE)
 s_instr <- text_stage(b_brew("instr.brew"), name="Instructions", wait=TRUE)
+s_quiz <- timed(stage(function(id, period, params) {
+        if (isTRUE(params$passed_quiz=="1")) {
+          mydf$passed_quiz[mydf$id==id] <<- 1
+          return(NEXT)
+        }
+        return(b_brew("quiz.brew")(id, period, params, NULL))
+      }, 
+      name="Quiz"), 
+      timeout=240, on_timeout=function(id, period) {
+        mydf$passed_quiz[mydf$id==id] <<- 0 
+      })
 
 p_carry_over <- program(run="first", function(id, period, ...) {
     if (period > 1) mydf$colour[mydf$period==period] <<- 
@@ -158,12 +174,14 @@ s_final_results <- text_stage(b_brew("final_results.brew"),
 s_quaire <- form_stage(b_brew("quaire.brew"), 
       fields=list(
         q_about=has_value(), 
+        q_comments=function(...) return(NULL),
         q_gender=is_one_of("male", "female"),
         q_teamsports=is_one_of("yes", "no"),
         q_othsports=is_one_of("yes", "no")
       ),
       titles=list(
         q_about="What did you think this experiment was about",
+        q_comments="Comments",
         q_gender="Gender",
         q_teamsports="Team sports",
         q_othsports="Other sports"
@@ -177,7 +195,7 @@ p_write_data <- program(run="last", function(...) {
 },
 name="Write experiment data")
 
-add_stage(expt, s_rules, s_instr)
+add_stage(expt, s_rules, s_instr, s_quiz)
 add_stage(expt, 
       period("all"), p_carry_over, p_timer, s_pick_colour, p_prepare, 
       checkpoint(), p_timer, s_pick_target, checkpoint(), p_results, 

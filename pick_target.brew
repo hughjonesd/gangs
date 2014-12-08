@@ -7,11 +7,10 @@
 <h1>Pick a target - period <%= period %> / <%= n_reps %></h1>
 
 <div class="info">
-<p>All group members start this period with <%= ukp(endowment) %>.</p>
-<p>You may pick a target group member. If at least <%= min_targeters %>  group members pick a particular group member, that person loses <%= ukp(endowment) %>, leaving them with <%= ukp(0) %> from the period. The <%= ukp(endowment) %> is shared between all who picked that target.</p>
 
 <p>Group members are shown below in random order. They will be shown in a different order to other participants.</p>
 <p>Click on a group member to pick that group member, or click on 'Pick nobody'.</p>
+<p>Picking a group member costs <%= tcost %>.</p>
 </div>
 <form action="" method="POST">
 <div class="tcouter">

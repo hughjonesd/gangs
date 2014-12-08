@@ -147,9 +147,6 @@ button.targetnobody {
   vertical-align: bottom;
 }
 
-.chosen {
-  font-style: italic;
-}
 
 h1 {
   font-size: 1.2em;
@@ -200,6 +197,10 @@ body, p {
   from { opacity: 1.0; } to { opacity: 0.0; } 
 } 
 
+table.earnings td {
+  color: #888;
+}
+
 table.earnings tr:nth-child(odd) { 
     background-color:#EEE; 
 }
@@ -208,12 +209,22 @@ table.earnings tr:nth-child(even)	{
     background-color:#FFF; 
 }
 
+tr.chosen td{
+  color: black;
+}
+
 label {
   background-color: #EEE;
   cursor: pointer;
+  display: inline-block;
   margin: 2px;
-  padding: 1px;
-  border-radius: 2px;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+
+.wrong {
+  background: pink;  
 }
 
 input[type=radio] {
@@ -227,10 +238,16 @@ input[type=radio] {
 </div>
 <% } %>
 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
 <script>
 window.oncontextmenu = function(event) {
     event.preventDefault();
     event.stopPropagation();
     return false;
 };
+
+function disableF5(e) { if ((e.which || e.keyCode) == 116) e.preventDefault(); };
+$(document).on("keydown", disableF5);
 </script>
