@@ -1,3 +1,5 @@
 .Rproj.user
 .Rhistory
 .RData
+gangs-2014-*
+*.csv
