@@ -5,10 +5,10 @@ library(reshape2)
 # - quiz?
 # - ethics!
 # - instructions reflect 1 payment period
-# - how many periods - 20?
-# - timeout? 60 seconds?
 # - treatments per group
 #    - one "all different", one "3-3", one "2-2-2"?
+# - group ID measurement? moving cost elicit?
+
 # poss future treatments:
 # changers are marked?
 # cost to move?
@@ -21,8 +21,8 @@ endowment <- 12.00 # per round
 tcost <- 1.00 # cost of targeting someone
 showup_fee <- 2.50
 countdown <- 60 # for timer
-n_change_cols <- if (testmode) 3L else 2L # number who change colours in each group each round
-n_reps <- if (testmode) 2L else 15L # number of repetitions
+n_change_cols <- if (testmode) 2L else 2L # number who change colours in each group each round
+n_reps <- if (testmode) 2L else 20L # number of repetitions
 min_targeters <- if (testmode) 2L else 2L # to successfully expropriate victim
 mycolours <- c("#e41a1c", "#377eb8", "#4daf4a", "#984ea3",
       "#ff7f00", "#ffff33", "#a65628", "#f781bf") # from colour brewer
@@ -43,7 +43,7 @@ on_ready <- function() {
 }
 
 expt <- experiment(N=N, name="gangs", on_ready=on_ready, seed=seed,
-      clients_in_url=clients_in_url)
+      clients_in_url=clients_in_url, client_refresh=2)
 
 s_rules <- text_stage(b_brew("rules.brew"), name="Rules")
 s_instr <- text_stage(b_brew("instr.brew"), name="Instructions")
