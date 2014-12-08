@@ -2,7 +2,7 @@
 <% brew("functions.brew") %>
 <% brew("styles.brew") %>
 
-<h1>Pick a target - period <%= period %></h1>
+<h1>Pick a target - period <%= period %> / <%= n_reps %></h1>
 
 <div class="info">
 <p>All group members start this period with <%= ukp(endowment) %>.</p>

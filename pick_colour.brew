@@ -2,7 +2,7 @@
 <% brew("functions.brew") %>
 <% brew("styles.brew") %>
 
-<h1>Pick a new colour - period <%= period %></h1>
+<h1>Pick a new colour - period <%= period %> / <%= n_reps %></h1>
   
 <p>Your group is shown below in random order:</p>
 <% 
