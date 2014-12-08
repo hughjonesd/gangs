@@ -1,0 +1,13 @@
+<script>
+var timeout = <%= timeout[id]  %>;
+var myVar = setInterval(function(){myTimer()},1000);
+function myTimer() {
+    var d = new Date();
+    var mytime = timeout - d.getTime()/1000;
+    if (mytime > 0) ih = Math.round(mytime); else ih = "Please move on!";
+    el = document.getElementById("timer");
+    el.innerHTML = ih;
+    if (mytime < 10) el.className =  'timerblink';
+}
+</script>
+<div id="timer" class="timer"></div>

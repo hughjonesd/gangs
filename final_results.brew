@@ -4,7 +4,8 @@
 
 <h1>Final results</h1>
 
-<p>Your earnings are shown below.</p>
+<p>Your earnings for each period are shown below. Only the period marked 'chosen' will
+be paid.</p>
 
 <table class="earnings">
  <colgroup>
@@ -12,11 +13,15 @@
     <col style="text-align: right;">
   </colgroup>
 <tr><th>Period</th><th>Earnings</th></tr>
-<% for (p in 1:n_reps) { %>
-<tr><td><%= p %></td><td><%= ukp(mydf$profit[mydf$id==id & mydf$period==p]) %></td></tr>
+<% for (p in 1:n_reps) { 
+     chosen <- p==mydf$period_chosen[1]
+%>
+<tr<%= if (chosen) ' class="chosen"' %>><td><%= if (chosen) paste(p, "(chosen)") else 
+    p %></td>
+<td><%= ukp(mydf$profit[mydf$id==id & mydf$period==p]) %></td></tr>
 <% } %>
-<tr><td>Showup fee</td><td><%= ukp(showup_fee) %></td></tr>
-<tr><td>Total</td><td><%= ukp(globals$totalprofit[globals$id==id]) %></td></tr>
+<tr class="chosen"><td>Showup fee</td><td><%= ukp(showup_fee) %></td></tr>
+<tr class="chosen"><td>Total</td><td><%= ukp(globals$totalprofit[globals$id==id]) %></td></tr>
 </table>
 
 <p>There is now a short questionnaire.</p>

@@ -2,12 +2,11 @@ library(betr)
 library(reshape2)
 
 # TODO:
-# - rules/instructions/quiz?
-# - seats and identify_seats in lab (or use Denise's)
-# - invite ppl
+# - quiz?
 # - ethics!
-# - maybe pay 1 period large amount?
-#   - more incentive but less "buildup?"
+# - instructions reflect 1 payment period
+# - how many periods - 20?
+# - timeout? 60 seconds?
 # - treatments per group
 #    - one "all different", one "3-3", one "2-2-2"?
 # poss future treatments:
@@ -18,10 +17,11 @@ testmode <- TRUE
 session <- 1L # session number
 gs <- if (testmode) 2L else 6L # group size
 N <- if (testmode) 2L else 24L # session size
-endowment <- 1.00 # per round
-tcost <- 0.10 # cost of targeting someone
+endowment <- 12.00 # per round
+tcost <- 1.00 # cost of targeting someone
 showup_fee <- 2.50
-n_change_cols <- if (testmode) 3L else 3L # number who change colours in each group each round
+countdown <- 60 # for timer
+n_change_cols <- if (testmode) 3L else 2L # number who change colours in each group each round
 n_reps <- if (testmode) 2L else 15L # number of repetitions
 min_targeters <- if (testmode) 2L else 2L # to successfully expropriate victim
 mycolours <- c("#e41a1c", "#377eb8", "#4daf4a", "#984ea3",
@@ -32,11 +32,12 @@ clients_in_url <- testmode
 on_ready <- function() {
   globals <<- NA
   random_order <<- NA
+  timeout <<- NA
   groups <<- sample(rep(1:(expt$N/gs), gs))
   mydf <<- experiment_data_frame(expt, group=groups, 
         colour=sample(mycolours, N, replace=TRUE), can_change=NA,
         suggcolour=NA, target=NA, targeted=NA, successful=NA,
-        pos=NA, profit=NA, 
+        pos=NA, profit=NA, period_chosen=NA,
         q_about=NA, q_gender=NA, q_teamsports=NA, q_othsports=NA,
         stringsAsFactors=FALSE)
 }
@@ -61,6 +62,11 @@ is_colour <- function(ftitle, val, id, period, params) {
   if (! mydf$can_change[mydf$period==period & mydf$id==id]) return(NULL)
   really_is_colour(ftitle, val, id, period, params)
 }
+
+p_timer <- program(run="all", function(id, period) {
+  timeout[id] <<- as.numeric(Sys.time()) + countdown 
+}, name="Start timer")
+
 
 s_pick_colour <- form_stage(b_brew("pick_colour.brew"), 
       fields=list(suggcolour=is_colour), 
@@ -129,7 +135,10 @@ s_results <- text_stage(b_brew("results.brew"), name="Period results")
 write_payment_data <- function() {
   globals <<- dcast(melt(mydf[,c("id", "period", "profit")], id=1:2),
     id ~ period)
-  globals$totalprofit <<- rowSums(globals[-1], na.rm=TRUE)
+  pc <- sample(n_reps, 1)
+  globals$period_chosen <<- pc
+  mydf$period_chosen <<- pc
+  globals$totalprofit <<- mydf$profit[mydf$period==pc]
   globals$totalprofit <<- round(globals$totalprofit + showup_fee, 2)
   globals <<- merge_subjects(expt, globals)[,c("seat", "id", "totalprofit")]
   globals <<- globals[order(globals$seat, globals$id),]
@@ -169,9 +178,9 @@ name="Write experiment data")
 
 add_stage(expt, s_rules, s_instr)
 add_stage(expt, 
-      period("all"), p_carry_over, s_pick_colour, p_prepare, 
-      checkpoint(), s_pick_target, checkpoint(), p_results, 
-      s_results, 
+      period("all"), p_carry_over, p_timer, s_pick_colour, p_prepare, 
+      checkpoint(), p_timer, s_pick_target, checkpoint(), p_results, 
+      p_timer, s_results, 
       times=n_reps)
 add_stage(expt, period("all"), p_calculate_profit, s_final_results,
       s_quaire, p_write_data)

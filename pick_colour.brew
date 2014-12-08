@@ -1,6 +1,7 @@
 <%= header("Pick a new colour") %>
 <% brew("functions.brew") %>
 <% brew("styles.brew") %>
+<% brew("timer.brew") %>
 
 <h1>Pick a new colour - period <%= period %></h1>
   
