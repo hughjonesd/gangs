@@ -152,9 +152,24 @@ button.targetnobody {
 }
 
 h1 {
-  font-size: large;
+  font-size: 1.2em;
 }
 
+h2 {
+  font-size: 1.05em;
+  margin-top: 0.5em;
+}
+
+figcaption {
+  text-align: center;
+  font-size: 0.85em;
+}
+.instrimg {
+  margin: 5%; 
+  height: 90%;
+  width: 90%;
+  border: 1px solid black;
+}
 body, p {
   font-family: verdana, sans-serif;
 }
@@ -211,3 +226,11 @@ input[type=radio] {
 <%= paste(errors, collapse='<br>') %>
 </div>
 <% } %>
+
+<script>
+window.oncontextmenu = function(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    return false;
+};
+</script>

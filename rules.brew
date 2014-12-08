@@ -4,6 +4,19 @@
 
 <h1>Rules</h1>
 
+<p>Welcome to the experiment!</p>
+
+<p>On your desk you have a consent form and information sheet. Please now read the information sheet and sign the consent form.</p>
+
+<p>Please stay silent during the experiment, and do not use mobile phones or
+other communication devices. Please follow the experimenters' instructions at
+all times. If you do not follow these rules, you may be asked to leave without
+being paid.</p>
+
+<p>If you have a question, now or later, please raise your hand and wait
+for an experimenter to come and help you privately.</p>
+
 <p>When the experimenter tells you, click Next.</p>
+
 <%= next_form("Next") %>
 <%= footer() %>

@@ -3,14 +3,15 @@ library(reshape2)
 
 # TODO:
 # - quiz?
+# - consent form/infosheet/exper instrns/paper instrns?
 # - ethics!
 # - instructions reflect 1 payment period
 # - treatments per group
 #    - one "all different", one "3-3", one "2-2-2"?
 # - group ID measurement? moving cost elicit?
 
-# poss future treatments:
-# changers are marked?
+# ===== poss future treatments =====
+# changers are marked? 
 # cost to move?
 
 testmode <- TRUE
@@ -25,7 +26,8 @@ n_change_cols <- if (testmode) 2L else 2L # number who change colours in each gr
 n_reps <- if (testmode) 2L else 20L # number of repetitions
 min_targeters <- if (testmode) 2L else 2L # to successfully expropriate victim
 mycolours <- c("#e41a1c", "#377eb8", "#4daf4a", "#984ea3",
-      "#ff7f00", "#ffff33", "#a65628", "#f781bf") # from colour brewer
+      "#ff7f00", "#ffff33", "#a65628", "#f781bf")[1:6] # from colorbrewer
+img_prefix <- if (testmode) "http://127.0.0.1" else ""
 seed <- c(653198432L, 1324689L, 186079134L, 213468933L, 132463232L)[session]
 if (N %% gs) stop("N doesn't divide into group size")
 clients_in_url <- testmode
@@ -45,8 +47,8 @@ on_ready <- function() {
 expt <- experiment(N=N, name="gangs", on_ready=on_ready, seed=seed,
       clients_in_url=clients_in_url, client_refresh=2)
 
-s_rules <- text_stage(b_brew("rules.brew"), name="Rules")
-s_instr <- text_stage(b_brew("instr.brew"), name="Instructions")
+s_rules <- text_stage(b_brew("rules.brew"), name="Rules", wait=TRUE)
+s_instr <- text_stage(b_brew("instr.brew"), name="Instructions", wait=TRUE)
 
 p_carry_over <- program(run="first", function(id, period, ...) {
     if (period > 1) mydf$colour[mydf$period==period] <<- 
@@ -97,7 +99,6 @@ is_target <- function(ftitle, val, id, ...) {
   if (! val %in% c(0, random_order[,id])) return("Please choose a target")
   return(NULL)
 }
-
 
 s_pick_target <- form_stage(b_brew("pick_target.brew"),
       fields=list(target=is_target),

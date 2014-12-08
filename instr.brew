@@ -4,6 +4,69 @@
 
 <h1>Instructions</h1>
 
+<p>In this experiment, you will interact with a group of <b><%= gs %>
+participants</b>. You will stay with this group throughout the experiment.</p>
+
+<p>Each participant in the group is identified by one of <%= length(mycolours) %>
+colours. You will start with a randomly allocated colour, but you may be able
+to change it during the experiment.</p>
+
+<h2>Periods</h2>
+<p>The experiment has <%= n_reps %> periods. Each period has the following
+stages:</p>
+<ol>
+<li><b>Picking a colour.</b> Each group member's colour is shown on screen. 
+<%= n_change_cols %> of the participants are allowed to pick a new colour, 
+which can be the same or different as their old colour. The other 
+<%= gs - n_change_cols %> participants cannot change their colour.</li>
+<li><b>Picking a target.</b> See below.
+<li><b>Results.</b> The computer displays which group members targeted whom,
+and each member's earnings from this period.</li>
+</ol>
+
+<p>After the <%= n_reps %> periods, you will be shown your earnings. 
+In addition to your earnings from all the periods, you will receive a
+£2.50 showup fee. There will then be a short questionnaire. 
+Finally, you will be paid privately and will be free to go.</p>
+
+<h2>Picking a target</h2>
+<p>All group members start each period with <%= ukp(endowment) %>.</p>
+<p>In the second stage of each period, you may <b>pick another group member as a target</b>. Picking a target costs <%= ukp(tcost) %>. Alternatively, you may
+pick nobody, at no cost.</p>
+
+<p>If you and at least <%= min_targeters - 1 %> other person choose
+the same target, then <b>the target loses <%= ukp(endowment) %> and 
+this is shared among all those who picked them</b>.</p>
+
+<div style="background: #DDD; margin-left: 15px; margin-right: 15px; 
+      padding-left: 10px; padding-right: 10px; padding-top: 5px; 
+      padding-bottom: 5px; border-radius: 10px;">
+<h2>Example</h2>
+<p>If 3 people all choose the same group member as a target, then the target
+loses <%= ukp(endowment) %> and each of the 3 people gains <%= ukp(endowment/3) %>.</p>
+</div>
+
+<p>You cannot earn less than 0 pence in any period. If you earn a negative
+amount, it will be adjusted up to 0 pence.</p>
+<h2>Picking group members</h2>
+
+<p>When you choose a target, group members will be shown on their screen,
+identified by their colour. Clicking on a group member will pick them as a target.</p>
+<p>Other group members will see the same colours, but in a different order. See
+the two example screenshots below.</p>
+
+<div style="position: relative; height: 280px; margin-bottom: 5em;">
+<figure style="position: absolute; left: 8%; width:40%; height: 90%;">
+<img src="<%= img_prefix %>/images/screen1.png" class="instrimg">
+<figcaption>Group members are shown by colour. Click on a circle to pick that group member as a target.</figcaption>
+</figure>
+<figure style="position: absolute; left: 52%; width:40%; height: 90%;">
+<img src="<%= img_prefix %>/images/screen2.png" class="instrimg">
+<figcaption>Another group member sees the same colours, but in a different 
+order.</figcaption>
+</figure>
+</div>
+
 <p>When the experimenter tells you, click Next.</p>
 <%= next_form("Next") %>
 <%= footer() %>
