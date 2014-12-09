@@ -2,9 +2,7 @@ library(betr)
 library(reshape2)
 
 # TODO:
-# - quiz?
 # - exper instrns/paper instrns?
-# - ethics!
 # - lab test: instrns ok?
 # - treatments per group
 #    - one "all different", one "3-3", one "2-2-2"?
@@ -13,11 +11,11 @@ library(reshape2)
 #    - random gives natural variation in e.g. "heterogeneity" or "polarization"
 #    - and will encourage targeting of standout minorities (probably)
 #    - but can create more variation deliberately...
-# - group ID measurement? moving cost elicit?
+# - group ID measurement?
 
 # ===== poss future treatments =====
 # changers are marked? 
-# cost to move?
+# cost/elicit cost to move?
 
 testmode <- TRUE
 session <- 1L # session number
@@ -31,8 +29,7 @@ countdown <- 60 # for timer
 n_change_cols <- if (testmode) 2L else 2L # number who change colours in each group each round
 n_reps <- if (testmode) 2L else 20L # number of repetitions
 min_targeters <- if (testmode) 2L else 2L # to successfully expropriate victim
-mycolours <- c("#e41a1c", "#377eb8", "#4daf4a", "#984ea3",
-      "#ff7f00", "#ffff33", "#a65628", "#f781bf")[1:6] # from colorbrewer
+mycolours <- c("#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ff7f00", "#ffff33")
 img_prefix <- if (testmode) "http://127.0.0.1" else ""
 seed <- c(653198432L, 1324689L, 186079134L, 213468933L, 132463232L)[session]
 if (N %% gs) stop("N doesn't divide into group size")
