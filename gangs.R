@@ -3,7 +3,7 @@ library(reshape2)
 
 # TODO:
 # - quiz?
-# - consent form/infosheet/exper instrns/paper instrns?
+# - exper instrns/paper instrns?
 # - ethics!
 # - lab test: instrns ok?
 # - treatments per group
@@ -12,6 +12,7 @@ library(reshape2)
 #    - but also very specific and easy to make inferences?
 #    - random gives natural variation in e.g. "heterogeneity" or "polarization"
 #    - and will encourage targeting of standout minorities (probably)
+#    - but can create more variation deliberately...
 # - group ID measurement? moving cost elicit?
 
 # ===== poss future treatments =====
@@ -23,7 +24,7 @@ session <- 1L # session number
 gs <- if (testmode) 2L else 6L # group size
 N <- if (testmode) 2L else 24L # session size
 endowment <- 12.00 # per round
-lossgain <- 10.00
+gainloss <- 10.00
 tcost <- 0.50 # cost of targeting someone
 showup_fee <- 2.50
 countdown <- 60 # for timer
@@ -134,8 +135,8 @@ p_results <- program("first", function(id, period,...) {
         tid <- mydf$id %in% targeters & mydf$period==period
         mydf$targeted[vid] <<- nt
         if (nt >= min_targeters) {
-          mydf$profit[vid] <<- mydf$profit[vid] - endowment
-          mydf$profit[tid] <<- mydf$profit[tid] + endowment/nt
+          mydf$profit[vid] <<- mydf$profit[vid] - gainloss
+          mydf$profit[tid] <<- mydf$profit[tid] + gainloss/nt
           mydf$successful[tid] <<- TRUE
         } else {
           mydf$successful[tid] <<- FALSE

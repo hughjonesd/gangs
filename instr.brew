@@ -38,7 +38,7 @@ Finally, you will be paid privately and will be free to go.</p>
 pick nobody, at no cost.</p>
 
 <p>If you and at least <%= min_targeters - 1 %> other person choose
-the same target, then <b>the target loses <%= ukp(endowment) %> and 
+the same target, then <b>the target loses <%= ukp(gainloss) %> and 
 this is shared among all those who picked them</b>.</p>
 
 <div style="background: #DDD; margin-left: 15px; margin-right: 15px; 
@@ -46,7 +46,7 @@ this is shared among all those who picked them</b>.</p>
       padding-bottom: 5px; border-radius: 10px;">
 <h2>Example</h2>
 <p>If 3 people all choose the same group member as a target, then the target
-loses <%= ukp(endowment) %> and each of the 3 people gains <%= ukp(endowment/3) %>.</p>
+loses <%= ukp(gainloss) %> and each of the 3 people gains <%= ukp(gainloss/3) %>.</p>
 </div>
 
 <p>You cannot earn less than 0 pence in any period. If you earn a negative

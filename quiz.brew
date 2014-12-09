@@ -50,8 +50,8 @@ before each round?</span>
 <li><span id="lq4">If four group members pick the same target, what happens?
 </span><br>
 <label><input type="radio" name="q4" value="nothing">Nothing happens</label>
-<label><input type="radio" name="q4" value="allgain">The target loses <%= ukp(endowment) %> and those who picked him each gain <%= ukp(endowment) %></label>
-<label><input type="radio" name="q4" value="divgain">The target loses <%= ukp(endowment) %> and those who picked him each gain <%= ukp(endowment/4) %></label>
+<label><input type="radio" name="q4" value="allgain">The target loses <%= ukp(gainloss) %> and those who picked him each gain <%= ukp(gainloss) %></label>
+<label><input type="radio" name="q4" value="divgain">The target loses <%= ukp(gainloss) %> and those who picked him each gain <%= ukp(gainloss/4) %></label>
 </li>
 
 <li><span id="lq5">You will be paid your earnings from how many periods at the end of 
@@ -72,7 +72,7 @@ the experiment?</span><br>
 at the start of each period.</li>
 <li>Group members start each period with <%= ukp(endowment) %>.</li>
 <li>If at least <%= min_targeters %> group members target someone, that
-person loses <%= ukp(endowment) %> and this amount is split among all those who
+person loses <%= ukp(gainloss) %> and this amount is split among all those who
 picked the person.</li>
 <li>Only one period, chosen at random, is paid.</li>
 </ul>

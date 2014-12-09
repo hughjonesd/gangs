@@ -24,6 +24,8 @@ be paid.</p>
 <tr class="chosen"><td>Total</td><td><%= ukp(globals$totalprofit[globals$id==id]) %></td></tr>
 </table>
 
-<p>There is now a short questionnaire.</p>
-<%= next_form("Begin questionnaire") %>
+<p><b>Fill in your receipt with your name, the date, and the total shown above.</b></p>
+
+<p>When you have filled in the receipt, click below to begin a short questionnaire.</p>
+<%= next_form("I have filled in the receipt") %>
 <%= footer() %>

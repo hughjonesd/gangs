@@ -10,8 +10,8 @@
 <p>The arrows show who picked whom as a target.</p>
 <p>If <%= min_targeters %> or more group members picked a target, 
 the arrows and target are shown in red. 
-The target loses <%= ukp(endowment) %>. 
-The <%= ukp(endowment) %> is shared between all those who picked the
+The target loses <%= ukp(gainloss) %>. 
+The <%= ukp(gainloss) %> is shared between all those who picked the
 target.</p>
 </div>
 <div class="tcouter">
@@ -23,14 +23,14 @@ target.</p>
      subj <- mydf[mydf$id==j & mydf$period==period,]
      shift <- if(ct <= gs/2) "shiftright" else "shiftleft"
      gain <- if (isTRUE(subj$successful))
-          endowment/sum(mydf$target[mydf$period==period]==subj$target)
+          gainloss/sum(mydf$target[mydf$period==period]==subj$target)
      targeted <- subj$targeted >= min_targeters
 %>
 <div class="targetpicker pos<%= ct %><%= if(targeted) ' targeted' %> ">
 <%= colour_display(subj$colour, j==id) %>
 </div>
 <div class="pos<%= ct %> <%= shift %> profitinfo">
-<%= if (subj$targeted >= min_targeters) paste("Lost", ukp(endowment), "<br>") %>
+<%= if (subj$targeted >= min_targeters) paste("Lost", ukp(gainloss), "<br>") %>
 <%= if (subj$target > 0) paste("Paid", ukp(tcost), "<br>") %>
 <%= if (isTRUE(subj$successful)) paste("Gained", ukp(gain), "<br>") %>
 <i>Profit: <%= ukp(subj$profit) %></i>
