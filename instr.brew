@@ -24,7 +24,8 @@ which may or may not be the same as their old colour. The other
 <li><b>Results.</b> The computer displays which group members targeted whom,
 and each member's earnings from this period.</li>
 </ol>
-
+<p>In each stage, you will have <%= countdown %> seconds to make a decision.
+After that you will be prompted to move on.</p>
 <p>After the <%= n_reps %> periods, you will be shown your earnings. 
 <b>One</b> period will be chosen at random for payment.
 In addition to your earnings from this one period, you will receive a
