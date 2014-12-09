@@ -65,17 +65,6 @@ the experiment?</span><br>
 </form>
 <div id="answers" style="display:none;">
 <p>Your answers are correct!</p>
-
-<ul>
-<li>Group members stay the same throughout.</li>
-<li><%= n_change_cols %> group members, chosen at random, can change their colours
-at the start of each period.</li>
-<li>Group members start each period with <%= ukp(endowment) %>.</li>
-<li>If at least <%= min_targeters %> group members target someone, that
-person loses <%= ukp(gainloss) %> and this amount is split among all those who
-picked the person.</li>
-<li>Only one period, chosen at random, is paid.</li>
-</ul>
 <p>Click 'Next' to move on.</p>
 <form action="" method="POST">
 <input type="hidden" name="passed_quiz" value="1"><input type="submit" value="Next">
