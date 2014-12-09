@@ -60,7 +60,7 @@ s_quiz <- timed(stage(function(id, period, params) {
         return(b_brew("quiz.brew")(id, period, params, NULL))
       }, 
       name="Quiz"), 
-      timeout=240, on_timeout=function(id, period) {
+      timeout=180, on_timeout=function(id, period) {
         mydf$passed_quiz[mydf$id==id] <<- 0 
       })
 
@@ -154,7 +154,7 @@ write_payment_data <- function() {
   globals$period_chosen <<- pc
   mydf$period_chosen <<- pc
   globals$totalprofit <<- mydf$profit[mydf$period==pc]
-  globals$totalprofit <<- round(globals$totalprofit + showup_fee, 2)
+  globals$totalprofit <<- sprintf("%.2f", globals$totalprofit + showup_fee)
   globals <<- merge_subjects(expt, globals)[,c("seat", "id", "totalprofit")]
   globals <<- globals[order(globals$seat, globals$id),]
   payfile <- paste0("session-", session, "-paydata.csv")

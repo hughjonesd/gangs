@@ -21,14 +21,12 @@
 </p>
 <p>What did you think this experiment was about?<br>
 <textarea name="q_about" style="width:40%; height: 15%;">
-
 </textarea>
 </p>
 
 
 <p>If you have any comments about the experiment, please enter them below:
 <textarea name="q_comments" style="width:40%; height: 15%;">
-
 </textarea>
 </p>
 

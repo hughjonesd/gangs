@@ -73,7 +73,7 @@ the two example screenshots below.</p>
 order.</figcaption>
 </figure>
 </div>
-
-<p>When the experimenter tells you, click Next.</p>
-<%= next_form("Next") %>
+<p>There will now be a short quiz. You will have three minutes to answer all the questions. You can use your paper copy of these instructions.</p>
+<p>When the experimenter tells you, click Begin the Quiz.</p>
+<%= next_form("Begin the Quiz") %>
 <%= footer() %>

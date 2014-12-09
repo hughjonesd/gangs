@@ -21,7 +21,8 @@ be paid.</p>
 <td><%= ukp(mydf$profit[mydf$id==id & mydf$period==p]) %></td></tr>
 <% } %>
 <tr class="chosen"><td>Showup fee</td><td><%= ukp(showup_fee) %></td></tr>
-<tr class="chosen"><td>Total</td><td><%= ukp(globals$totalprofit[globals$id==id]) %></td></tr>
+<tr class="chosen"><td><b>Total</b></td>
+<td><b><%= ukp(globals$totalprofit[globals$id==id]) %></b></td></tr>
 </table>
 
 <p><b>Fill in your receipt with your name, the date, and the total shown above.</b></p>
