@@ -4,6 +4,7 @@ library(reshape2)
 # TODO:
 # - exper instrns/paper instrns?
 # - lab test: instrns ok?
+# - lab test: connection reset in quiz timed stage?
 # - treatments per group
 #    - one "all different", one "3-3", one "2-2-2"?
 #    - all different means "no initial groups"

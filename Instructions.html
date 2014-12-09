@@ -1,0 +1,339 @@
+<html><head><title>Instructions</title></head>
+        <body style='background-color: white; padding: 2% 4%;'>
+        <div style='background-color: white; padding: 3% 3%;'>
+
+
+
+<meta charset="UTF-8">
+<style>
+
+#instr {
+  display: none;
+}
+
+.colourchooser {
+  height: 40px;
+  width: 40px;
+  border: 1px solid #444;
+  cursor: pointer;
+}
+
+.groupstrip {
+  width: 100%;
+}
+
+.groupstrip .colourdisplay {
+  display: inline-flex;
+}
+
+
+.colourdisplay {
+  border-radius: 30px;
+  height: 60px;
+  width: 60px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  border: 1px solid #888;
+}
+
+
+button.targetpicker {
+  cursor: pointer;
+  background: white;
+  outline: none;
+  border: 0px;
+}
+
+button.targetpicker:disabled {
+  cursor: default;
+}
+
+button.targetpicker:disabled .colourdisplay{
+  border: 1px dashed #888;
+  color: #333;
+}
+
+.targeted .colourdisplay{
+  border: 2px solid #A00;
+}
+
+.colourdisplay span {
+  z-index: 1;
+}
+
+.arrowsuccess {
+  stroke: #A00;
+  stroke-width: .5;
+  opacity: 0.8;
+}
+
+.arrowtipsuccess {
+  fill: #A00;
+  stroke: #A00;
+  opacity: 0.8;
+}
+
+.arrowfail {
+  stroke: #777;
+  stroke-dasharray: 2,2;
+  stroke-width: .5;
+  opacity: 0.8;
+}
+ 
+.arrowtipfail {
+  fill: #777;
+  stroke: #777;
+  stroke-dasharray: 0;
+  opacity: 0.8;
+}
+
+body > div {
+  position: relative;
+}
+
+.info {
+  padding-bottom: 30px;
+}
+
+.tcouter {
+  position: relative;
+  height: 300px;
+  width: 500px;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.targetcanvas {
+  position: absolute;
+  left: 5%;
+  top: 0%;
+  width: 90%;
+  height: 100%;
+}
+
+
+.pos1 {
+  position: absolute;
+  left: 50%;
+  top: 5%;
+  transform: translate(-50%, -50%);
+}
+ 
+.pos2 {
+  position: absolute;
+  left: 50%;
+  top: 95%;
+  transform: translate(-50%, -50%);
+}
+
+
+button.targetnobody {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+.shiftleft {
+  text-align: right;
+  transform: translate(-120px, -50%);
+}
+
+.shiftright {
+  text-align: right;
+  transform: translate(40px, -50%);
+}
+
+.profitinfo {
+  font-size: 8pt;
+  color: #888;
+  padding-right: 5px;
+  border-radius: 5px;
+  height: 60px;
+  width: 80px;
+  vertical-align: bottom;
+}
+
+
+h1 {
+  font-size: 1.2em;
+}
+
+h2 {
+  font-size: 1.05em;
+  margin-top: 0.5em;
+}
+
+figcaption {
+  text-align: center;
+  font-size: 0.85em;
+}
+.instrimg {
+  margin: 5%; 
+  height: 90%;
+  width: 90%;
+  border: 1px solid black;
+}
+body, p {
+  font-family: verdana, sans-serif;
+}
+
+.errors {
+  color: red;
+  font-weight: bold;
+}
+
+.timer, .timerblink {
+  float: right;
+}
+
+.timer {
+  color: #000;
+}
+
+
+.timerblink { 
+  color: #F00;
+  animation-name: blinker; 
+  animation-iteration-count: infinite; 
+  animation-timing-function: cubic-bezier(1.0,0,0,1.0); 
+  animation-duration: 1s;
+}
+
+@keyframes blinker { 
+  from { opacity: 1.0; } to { opacity: 0.0; } 
+} 
+
+table.earnings td {
+  color: #888;
+}
+
+table.earnings tr:nth-child(odd) { 
+    background-color:#EEE; 
+}
+
+table.earnings tr:nth-child(even)	{ 
+    background-color:#FFF; 
+}
+
+tr.chosen td{
+  color: black;
+}
+
+label {
+  background-color: #EEE;
+  cursor: pointer;
+  display: inline-block;
+  margin: 2px;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+
+.wrong {
+  background: pink;  
+}
+
+input[type=radio] {
+  cursor: pointer;
+}
+</style>
+
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+<script>
+window.oncontextmenu = function(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    return false;
+};
+
+function disableF5(e) { if ((e.which || e.keyCode) == 116) e.preventDefault(); };
+$(document).on("keydown", disableF5);
+</script>
+
+
+<h1>Instructions</h1>
+
+<p>In this experiment, you will interact with a group of <b>6
+participants</b>. You will stay with this group throughout the experiment.</p>
+
+<p>Each participant in the group is identified by one of 6
+colours, as shown below. You will start with a randomly allocated colour, but you may be able
+to change it during the experiment.</p>
+<figure>
+<div style="display:flex; justify-content: space-around; position: relative; width:70%; left: 15%; margin-bottom: 1em; border: 1px solid black; padding: 20px;">
+<div class="colourdisplay" style="background: #e41a1c">
+        <span>&nbsp;</span></div> <div class="colourdisplay" style="background: #377eb8">
+        <span>&nbsp;</span></div> <div class="colourdisplay" style="background: #4daf4a">
+        <span>&nbsp;</span></div> <div class="colourdisplay" style="background: #984ea3">
+        <span>&nbsp;</span></div> <div class="colourdisplay" style="background: #ff7f00">
+        <span>&nbsp;</span></div> <div class="colourdisplay" style="background: #ffff33">
+        <span>&nbsp;</span></div>
+</div>
+<figcaption>Different participants identified by a coloured circle</figcaption>
+</figure>
+
+<h2>Periods</h2>
+<p>The experiment has 20 periods. Each period has the following
+stages:</p>
+<ol>
+<li><b>Picking a colour.</b> Each group member's colour is shown on screen. 
+2 of the group members, chosen each round at random by the computer, 
+are able to pick a new colour, 
+which may or may not be the same as their old colour. The other 
+4 group members cannot change their colour.</li>
+<li><b>Picking a target.</b> See below.
+<li><b>Results.</b> The computer displays which group members targeted whom,
+and each member's earnings from this period.</li>
+</ol>
+<p>In each stage, you will have 60 seconds to make a decision.
+After that you will be prompted to move on.</p>
+<p>After the 20 periods, you will be shown your earnings. 
+<b>One</b> period will be chosen at random for payment.
+In addition to your earnings from this one period, you will receive a
+£2.50 showup fee. There will then be a short questionnaire. 
+Finally, you will be paid privately and will be free to go.</p>
+
+<h2>Picking a target</h2>
+<p>All group members start each period with £12.00.</p>
+<p>In the second stage of each period, you may <b>pick another group member as a target</b>. Picking a target costs £0.50. Alternatively, you may
+pick nobody, at no cost.</p>
+
+<p>If you and at least 1 other person choose
+the same target, then <b>the target loses £10.00 and 
+this is shared among all those who picked them</b>.</p>
+
+<div style="background: #DDD; margin-left: 15px; margin-right: 15px; 
+      padding-left: 10px; padding-right: 10px; padding-top: 5px; 
+      padding-bottom: 5px; border-radius: 10px;">
+<h2>Example</h2>
+<p>If 3 people all choose the same group member as a target, then the target
+loses £10.00 and each of the 3 people gains £3.33.</p>
+</div>
+
+<h2>Picking group members</h2>
+
+<p>When you choose a target, group members will be shown on their screen,
+identified by their colour. Clicking on a group member will pick them as a target.</p>
+<p>Other group members will see the same colours, but in a different order. See
+the two example screenshots below.</p>
+
+<div style="position: relative; height: 280px; margin-bottom: 5em;">
+<figure style="position: absolute; left: 8%; width:40%; height: 90%;">
+<img src="http://127.0.0.1/images/screen1.png" class="instrimg">
+<figcaption>Group members are shown by colour. Click on a circle to pick that group member as a target.</figcaption>
+</figure>
+<figure style="position: absolute; left: 52%; width:40%; height: 90%;">
+<img src="http://127.0.0.1/images/screen2.png" class="instrimg">
+<figcaption>Another group member sees the same colours, but in a different 
+order.</figcaption>
+</figure>
+</div>
+
+</div></html>

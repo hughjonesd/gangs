@@ -1,5 +1,5 @@
 <script>
-var timeout = <%= timeout[id]  %>;
+var timeout = <%= as.character(timeout[id]) %>;
 var myVar = setInterval(function(){myTimer()},1000);
 function myTimer() {
     var d = new Date();

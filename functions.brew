@@ -6,6 +6,7 @@ colour_display <- function(colour, is_viewer=FALSE, content=NULL) {
 }
 
 ukp <- function(amt) {
+  amt <- as.numeric(amt)
   sprintf('£%0.2f', amt)
 }
 
