@@ -19,7 +19,7 @@ library(reshape2)
 # cost/elicit cost to move?
 
 testmode <- TRUE
-session <- 1L # session number
+session <- if (exists('session')) session + 1 else 1
 gs <- if (testmode) 2L else 6L # group size
 N <- if (testmode) 2L else 24L # session size
 endowment <- 12.00 # per round
@@ -196,7 +196,7 @@ p_write_data <- program(run="last", function(...) {
 },
 name="Write experiment data")
 
-add_stage(expt, s_rules, s_instr, s_quiz, s_answers)
+add_stage(expt, s_rules, s_instr, s_quiz, checkpoint(), s_answers)
 add_stage(expt, 
       period("all"), p_carry_over, p_timer, s_pick_colour, p_prepare, 
       checkpoint(), p_timer, s_pick_target, checkpoint(), p_results, 
