@@ -1,0 +1,36 @@
+<%= header("Quiz Answers") %>
+<% brew("functions.brew") %>
+<% brew("styles.brew") %>
+<h1>Quiz Answers</h1>
+
+<ol>
+<li><span id="lq1">In each period, participants interact in groups of <%= gs %>. 
+Does the identity of the group members change between periods?</span><br>
+<span class="answer">No, groups stay the same throughout</span>
+</li>
+
+<li><span id="lq2">How many group members are able to change their colour 
+before each round?</span>
+<span class="answer"><%= n_change_cols %></span>
+</li>
+
+<li><span id="lq3">How much money does each group member have at the start of the period?</span><br>
+<span class="answer"><%= ukp(endowment) %></span>
+</li>
+
+<li><span id="lq4">If four group members pick the same target, what happens?
+</span><br>
+<span class="answer">The target loses <%= ukp(gainloss) %> and those who picked him each gain <%= ukp(gainloss/4) %></span>
+</li>
+
+<li><span id="lq5">You will be paid your earnings from how many periods at the end of 
+the experiment?</span><br>
+<span class="answer"><input type="radio" name="q5" value="one">one period</span>
+</li>
+</ol>
+
+<p>Click below to begin the experiment.</p>
+
+<%= next_form('Begin the experiment') %>
+
+<%= footer() %>

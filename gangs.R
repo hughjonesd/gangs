@@ -65,6 +65,8 @@ s_quiz <- timed(stage(function(id, period, params) {
         mydf$passed_quiz[mydf$id==id] <<- 0 
       })
 
+s_answers <- text_stage(b_brew("answers.brew"), name="Quiz answers")
+
 p_carry_over <- program(run="first", function(id, period, ...) {
     if (period > 1) mydf$colour[mydf$period==period] <<- 
           mydf$colour[mydf$period==period-1]
@@ -194,7 +196,7 @@ p_write_data <- program(run="last", function(...) {
 },
 name="Write experiment data")
 
-add_stage(expt, s_rules, s_instr, s_quiz)
+add_stage(expt, s_rules, s_instr, s_quiz, s_answers)
 add_stage(expt, 
       period("all"), p_carry_over, p_timer, s_pick_colour, p_prepare, 
       checkpoint(), p_timer, s_pick_target, checkpoint(), p_results, 

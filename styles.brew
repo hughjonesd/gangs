@@ -226,6 +226,9 @@ label {
   border-radius: 4px;
 }
 
+.answers {
+  font-weight: bold;
+}
 
 .wrong {
   background: pink;  
