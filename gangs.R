@@ -205,3 +205,9 @@ add_stage(expt,
 add_stage(expt, period("all"), p_calculate_profit, s_final_results,
       s_quaire, p_write_data)
 load_commands(expt)
+
+restart <- function() {
+  halt(expt)
+  source('gangs.R')
+  ready(expt)
+}
