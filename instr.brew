@@ -8,8 +8,12 @@
 participants</b>. You will stay with this group throughout the experiment.</p>
 
 <p>Each participant in the group is identified by one of <%= length(mycolours) %>
-colours. You will start with a randomly allocated colour, but you may be able
+colours, as shown below. You will start with a randomly allocated colour, but you may be able
 to change it during the experiment.</p>
+<figure>
+<%= sapply(1:6, function(x) colour_display(mycolours[x])) %>
+<figcaption>Different participants identified by a coloured circle</figcaption>
+</figure>
 
 <h2>Periods</h2>
 <p>The experiment has <%= n_reps %> periods. Each period has the following
@@ -49,8 +53,6 @@ this is shared among all those who picked them</b>.</p>
 loses <%= ukp(gainloss) %> and each of the 3 people gains <%= ukp(gainloss/3) %>.</p>
 </div>
 
-<p>You cannot earn less than 0 pence in any period. If you earn a negative
-amount, it will be adjusted up to 0 pence.</p>
 <h2>Picking group members</h2>
 
 <p>When you choose a target, group members will be shown on their screen,
