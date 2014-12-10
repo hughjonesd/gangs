@@ -255,6 +255,9 @@ window.oncontextmenu = function(event) {
     return false;
 };
 
-function disableF5(e) { if ((e.which || e.keyCode) == 116) e.preventDefault(); };
-$(document).on("keydown", disableF5);
+function disableSpecials(e) { 
+  var specials = [17, 18, 27, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123];
+  if ($.inArray((e.which || e.keyCode), specials) > -1) e.preventDefault(); 
+}
+$(document).on("keydown", disableSpecials);
 </script>
