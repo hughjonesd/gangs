@@ -64,11 +64,11 @@ the two example screenshots below.</p>
 
 <div style="position: relative; height: 280px; margin-bottom: 5em;">
 <figure style="position: absolute; left: 8%; width:40%; height: 90%;">
-<img src="<%= img_prefix %>/images/screen1.png" class="instrimg">
+<img src="<%= img_prefix %>/images/gangs/screen1.png" class="instrimg">
 <figcaption>Group members are shown by colour. Click on a circle to pick that group member as a target.</figcaption>
 </figure>
 <figure style="position: absolute; left: 52%; width:40%; height: 90%;">
-<img src="<%= img_prefix %>/images/screen2.png" class="instrimg">
+<img src="<%= img_prefix %>/images/gangs/screen2.png" class="instrimg">
 <figcaption>Another group member sees the same colours, but in a different 
 order.</figcaption>
 </figure>

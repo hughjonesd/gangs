@@ -18,7 +18,7 @@ library(reshape2)
 # changers are marked? 
 # cost/elicit cost to move?
 
-testmode <- TRUE
+testmode <- FALSE
 session <- if (exists('session')) session + 1 else 1
 gs <- if (testmode) 2L else 6L # group size
 N <- if (testmode) 2L else 24L # session size
@@ -71,7 +71,7 @@ p_carry_over <- program(run="first", function(id, period, ...) {
     if (period > 1) mydf$colour[mydf$period==period] <<- 
           mydf$colour[mydf$period==period-1]
     mydf$can_change[mydf$period==period] <<- FALSE
-    mydf$can_change[mydf$period==period][sample(1:gs, n_change_cols)] <<-
+    mydf$can_change[mydf$period==period][sample(1:N, n_change_cols*N/gs)] <<-
           TRUE
   },
   name="Carry over colours")
